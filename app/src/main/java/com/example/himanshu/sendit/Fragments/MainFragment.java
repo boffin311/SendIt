@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class MainFragment extends Fragment {
 RecyclerView rvGroupName;
      GroupNameAdapter groupNameAdapter;
 ArrayList<String> arrayList;
+     DatabaseReference databaseReference,groupDatabase;
+
     public MainFragment() {
     }
 
@@ -40,14 +43,17 @@ ArrayList<String> arrayList;
         rvGroupName.setAdapter(groupNameAdapter);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference databaseReference=firebaseDatabase.getReference();
-        databaseReference.child(firebaseUser.getPhoneNumber()).child("Group").addChildEventListener(new ChildEventListener() {
+
+        databaseReference = firebaseDatabase.getReference();
+        databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").addChildEventListener(new ChildEventListener() {
 
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
               String groupName=dataSnapshot.getValue(String.class);
-              arrayList.add(groupName);
-              groupNameAdapter.notifyDataSetChanged();
+              readGroupName(databaseReference,groupName);
+//              arrayList.add(groupName);
+//            DatabaseReference groupNameReference=groupDatabase.child(groupName)
+//              groupNameAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -74,5 +80,37 @@ ArrayList<String> arrayList;
     }
 
 
+  public void readGroupName(DatabaseReference dbRef,String groupName)
+   {
+       dbRef.child(groupName).child("GroupName").addChildEventListener(new ChildEventListener() {
+           @Override
+           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+               String name=dataSnapshot.getValue(String.class);
+               arrayList.add(name);
+               Log.d("ggg", "onChildAdded: "+arrayList.size());
+               groupNameAdapter.notifyDataSetChanged();
+           }
 
+           @Override
+           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+           }
+
+           @Override
+           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+           }
+
+           @Override
+           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+           }
+
+           @Override
+           public void onCancelled(@NonNull DatabaseError databaseError) {
+
+           }
+       });
+
+   }
 }

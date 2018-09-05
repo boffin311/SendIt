@@ -63,7 +63,7 @@ public class AuthenticationFragment extends Fragment {
 
 
                 DatabaseReference databaseReference=firebaseDatabase.getReference().child(firebaseUser.getPhoneNumber());
-                databaseReference.child("Group").push().setValue("No Any");
+                databaseReference.child("Groups").setValue("Groups");
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 FragmentTransaction fragTxn=fragmentManager.beginTransaction();
                 fragTxn.replace(R.id.fragmentFrame,new MainFragment());
