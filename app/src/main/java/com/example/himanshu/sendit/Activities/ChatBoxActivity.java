@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 
-public class InitialActivity extends AppCompatActivity {
+public class ChatBoxActivity extends AppCompatActivity {
 Button btnNewGroup;
 FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
@@ -40,7 +40,7 @@ public static final String TAG="InitialCHK";
 //        btnNewGroup.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Intent intent=new Intent(InitialActivity.this,MainActivity.class);
+//                Intent intent=new Intent(ChatBoxActivity.this,MainActivity.class);
 //                startActivity(intent);
 //            }
 //        });

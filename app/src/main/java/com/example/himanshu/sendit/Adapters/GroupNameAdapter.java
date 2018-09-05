@@ -1,6 +1,8 @@
 package com.example.himanshu.sendit.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,15 +10,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.himanshu.sendit.Activities.ChatBoxActivity;
 import com.example.himanshu.sendit.R;
 
 import java.util.ArrayList;
 
 public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHolder> {
    ArrayList<String> arrayList;
+Context context;
+Activity activity;
 
-    public GroupNameAdapter(ArrayList<String> arrayList) {
+    public GroupNameAdapter(ArrayList<String> arrayList,Activity activity,Context context) {
         this.arrayList = arrayList;
+        this.context=context;
+        this.activity=activity;
     }
 
     @NonNull
@@ -31,6 +38,14 @@ public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHo
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
       holder.tvGroupName.setText(arrayList.get(position));
+      holder.tvGroupName.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              Intent intent=new Intent(activity, ChatBoxActivity.class);
+              context.startActivity(intent);
+
+          }
+      });
     }
 
     @Override

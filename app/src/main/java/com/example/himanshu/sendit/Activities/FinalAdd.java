@@ -26,7 +26,7 @@ GridView selectedGrid;
 EditText etgroupName;
 FirebaseUser firebaseUser;
 
-    ArrayList<UserData> nameArrayList;
+ArrayList<UserData> nameArrayList;
 FirebaseDatabase firebaseDatabase;
 public static final String TAG="CHK";
     @Override
@@ -58,18 +58,19 @@ public static final String TAG="CHK";
         if (item.getItemId()==R.id.createGroup)
         {
             DatabaseReference databaseReference=firebaseDatabase.getReference();
-
+           String howToNameGroup=firebaseUser.getUid()+etgroupName.getText().toString();
             if (etgroupName.getText().length()!=0)
             {
-               DatabaseReference childReference= databaseReference.child(firebaseUser.getUid()+etgroupName.getText().toString());
+               DatabaseReference childReference= databaseReference.child(howToNameGroup);
                DatabaseReference memberReference=childReference.child("MembersDetail");
 
-              for (int i=0;i<nameArrayList.size();++i)
+               for (int i=0;i<nameArrayList.size();++i)
               { memberReference.push().setValue(nameArrayList.get(i));
-                databaseReference.child(nameArrayList.get(i).getNumber()).child("Groups").push().setValue(firebaseUser.getUid()+etgroupName.getText().toString());
+                databaseReference.child(nameArrayList.get(i).getNumber()).child("Groups").push().setValue(howToNameGroup);
                childReference.child("GroupName").push().setValue(etgroupName.getText().toString());
 
               }
+            databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").push().setValue(howToNameGroup);
 
             }
 

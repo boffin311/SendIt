@@ -15,7 +15,7 @@
         <activity
             android:name=".Activities.FinalAdd"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".Activities.InitialActivity">
+        <activity android:name=".Activities.ChatBoxActivity">
 
         </activity>
         <activity android:name=".Activities.AuthenticationActivity">

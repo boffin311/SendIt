@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.himanshu.sendit.Activities.InitialActivity;
-import com.example.himanshu.sendit.Activities.MainActivity;
 import com.example.himanshu.sendit.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;

@@ -35,7 +35,7 @@ ArrayList<String> arrayList;
         View contactView=inflater.inflate(R.layout.fragment_main,container,false);
         rvGroupName=contactView.findViewById(R.id.rvGroupName);
         arrayList=new ArrayList<>();
-        groupNameAdapter = new GroupNameAdapter(arrayList);
+        groupNameAdapter = new GroupNameAdapter(arrayList,getActivity(),getActivity().getBaseContext());
         rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         rvGroupName.setAdapter(groupNameAdapter);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
