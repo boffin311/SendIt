@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.himanshu.sendit.Adapters.GroupNameAdapter;
 import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 
 public class MainFragment extends Fragment {
 RecyclerView rvGroupName;
+     GroupNameAdapter groupNameAdapter;
 ArrayList<String> arrayList;
     public MainFragment() {
     }
@@ -32,8 +35,9 @@ ArrayList<String> arrayList;
         View contactView=inflater.inflate(R.layout.fragment_main,container,false);
         rvGroupName=contactView.findViewById(R.id.rvGroupName);
         arrayList=new ArrayList<>();
+        groupNameAdapter = new GroupNameAdapter(arrayList);
         rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-        rvGroupName.setAdapter();
+        rvGroupName.setAdapter(groupNameAdapter);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference=firebaseDatabase.getReference();
@@ -43,7 +47,7 @@ ArrayList<String> arrayList;
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
               String groupName=dataSnapshot.getValue(String.class);
               arrayList.add(groupName);
-
+              groupNameAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -65,7 +69,7 @@ ArrayList<String> arrayList;
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        })
+        });
         return contactView;
     }
 

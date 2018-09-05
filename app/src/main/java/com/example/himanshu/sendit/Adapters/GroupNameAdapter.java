@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.himanshu.sendit.R;
 
@@ -29,7 +30,7 @@ public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHo
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-
+      holder.tvGroupName.setText(arrayList.get(position));
     }
 
     @Override
@@ -38,8 +39,10 @@ public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHo
     }
 
     class MyHolder extends RecyclerView.ViewHolder{
+        TextView tvGroupName;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
+            tvGroupName=itemView.findViewById(R.id.tvGroupName);
         }
     }
 }

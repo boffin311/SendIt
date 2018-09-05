@@ -51,13 +51,16 @@ public class MainActivity extends AppCompatActivity {
         flButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,FinalAdd.class);
              ArrayList<UserData> selectedOne= userAdapter.selectedArrayList;
 
              Log.d(TAG, "onClick: "+selectedOne.size());
-               intent.putExtra("NameArray",selectedOne);
-
-                startActivity(intent);
+             if (selectedOne.size()!=0){
+             Intent intent=new Intent(MainActivity.this,FinalAdd.class);
+                intent.putExtra("NameArray",selectedOne);
+               startActivity(intent);}
+               else {
+                 Toast.makeText(MainActivity.this, "Atleast one member must be selected", Toast.LENGTH_SHORT).show();
+             }
 
             }
         });
