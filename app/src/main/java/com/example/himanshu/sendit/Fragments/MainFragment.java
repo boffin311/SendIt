@@ -43,7 +43,6 @@ ArrayList<String> arrayList;
         rvGroupName.setAdapter(groupNameAdapter);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-
         databaseReference = firebaseDatabase.getReference();
         databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").addChildEventListener(new ChildEventListener() {
 
