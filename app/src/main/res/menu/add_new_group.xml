@@ -6,5 +6,7 @@
     android:icon="@drawable/ic_done"
     android:id="@+id/createGroup"
     android:orderInCategory="100"
-    ></item>
+    >
+
+</item>
 </menu>

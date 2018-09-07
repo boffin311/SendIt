@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.example.himanshu.sendit.R;
 import com.example.himanshu.sendit.Adapters.SelectedGridAdapter;
@@ -71,12 +72,15 @@ public static final String TAG="CHK";
                 }
                 childReference.child("GroupName").push().setValue(etgroupName.getText().toString());
             databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").push().setValue(howToNameGroup);
-
+                Intent intent=new Intent(FinalAdd.this,AuthenticationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+           else
+            {
+                Toast.makeText(this, "Can't create group without group name", Toast.LENGTH_SHORT).show();
             }
 
-            Intent intent=new Intent(FinalAdd.this,AuthenticationActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
