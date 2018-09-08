@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_launcher_background"
 
     tools:context=".Activities.ChatBoxActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:background="@drawable/ic_launcher_background"
-        android:layout_height="match_parent">
+        android:id="@+id/rvTesting"
+        android:layout_weight="1"
+        android:layout_height="0dp">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -34,7 +37,11 @@
                android:layout_height="match_parent" />
         <EditText
             android:layout_width="0dp"
+            android:maxHeight="150dp"
             android:layout_weight="9"
+           android:id="@+id/etSendText"
+            android:maxLines="6"
+
             android:backgroundTint="#FFF"
             android:hint="Type the text Here"
             android:paddingLeft="10dp"
@@ -43,13 +50,19 @@
        <ImageView
            android:layout_width="0dp"
            android:layout_weight="1"
+
            android:src="@drawable/ic_attach_file"
            android:layout_height="match_parent" />
 
    </LinearLayout>
-       <Button
+       <ImageButton
            android:layout_width="0dp"
            android:layout_weight="1"
-           android:layout_height="match_parent" />
+           android:background="@drawable/circle_view"
+           android:layout_marginLeft="7dp"
+           android:src="@drawable/ic_send"
+           android:id="@+id/imgBtnSend"
+           android:layout_gravity="bottom"
+           android:layout_height="50dp" />
     </LinearLayout>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
