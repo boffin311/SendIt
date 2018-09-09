@@ -64,6 +64,7 @@ public static final String TAG="CHK";
             {
                DatabaseReference childReference= databaseReference.child(howToNameGroup);
                DatabaseReference memberReference=childReference.child("MembersDetail");
+               DatabaseReference chatReference=childReference.child("ChatBox");
 
                for (int i=0;i<nameArrayList.size();++i)
               { memberReference.push().setValue(nameArrayList.get(i));
