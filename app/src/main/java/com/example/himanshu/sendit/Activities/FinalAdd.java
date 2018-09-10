@@ -64,15 +64,14 @@ public static final String TAG="CHK";
             {
                DatabaseReference childReference= databaseReference.child(howToNameGroup);
                DatabaseReference memberReference=childReference.child("MembersDetail");
-               DatabaseReference chatReference=childReference.child("ChatBox");
+               childReference.child("AllGridBoxes").setValue("GridBoxes");
+                childReference.child("GroupName").push().setValue(etgroupName.getText().toString());
+                databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").push().setValue(howToNameGroup);
 
                for (int i=0;i<nameArrayList.size();++i)
-              { memberReference.push().setValue(nameArrayList.get(i));
+               { memberReference.push().setValue(nameArrayList.get(i));
                 databaseReference.child(nameArrayList.get(i).getNumber()).child("Groups").push().setValue(howToNameGroup);
-
                 }
-                childReference.child("GroupName").push().setValue(etgroupName.getText().toString());
-            databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").push().setValue(howToNameGroup);
                 Intent intent=new Intent(FinalAdd.this,AuthenticationActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.example.himanshu.sendit.R;
 
@@ -32,7 +33,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        MyHolder holder;
+      String name=arrayList.get(position);
+      MyHolder holder;
         if (convertView==null){
         LayoutInflater li= (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView=li.inflate(R.layout.chat_box_grid,parent,false);
@@ -44,14 +46,16 @@ public class GridViewAdapter extends BaseAdapter {
         {
             holder= (MyHolder) convertView.getTag();
         }
-
+       holder.tvGridName.setText(name);
+        holder.tvFirstChar.setText(String.valueOf(name.charAt(0)).toUpperCase());
 
        return convertView;
     }
     class MyHolder {
-
-        MyHolder(View itemView){
-
+      TextView tvFirstChar,tvGridName;
+       public MyHolder(View itemView){
+          tvFirstChar=itemView.findViewById(R.id.tvFirstChar);
+          tvGridName=itemView.findViewById(R.id.tvGridName);
         }
     }
 }

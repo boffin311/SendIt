@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.himanshu.sendit.Activities.ChatBoxActivity;
 import com.example.himanshu.sendit.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -36,13 +37,15 @@ Activity activity;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
       holder.tvGroupName.setText(arrayList.get(position));
       holder.tvGroupName.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               Intent intent=new Intent(activity, ChatBoxActivity.class);
+              intent.putExtra("GroupToOpen", FirebaseAuth.getInstance().getCurrentUser().getUid()+arrayList.get(position));
               context.startActivity(intent);
+
 
           }
       });
