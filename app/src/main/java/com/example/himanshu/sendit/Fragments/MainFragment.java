@@ -27,6 +27,7 @@ public class MainFragment extends Fragment {
 RecyclerView rvGroupName;
      GroupNameAdapter groupNameAdapter;
 ArrayList<String> arrayList;
+ArrayList<String> groupNameArrayList;
      DatabaseReference databaseReference,groupDatabase;
 
     public MainFragment() {
@@ -38,7 +39,8 @@ ArrayList<String> arrayList;
         View contactView=inflater.inflate(R.layout.fragment_main,container,false);
         rvGroupName=contactView.findViewById(R.id.rvGroupName);
         arrayList=new ArrayList<>();
-        groupNameAdapter = new GroupNameAdapter(arrayList,getActivity(),getActivity().getBaseContext());
+       groupNameArrayList =new ArrayList<>();
+        groupNameAdapter = new GroupNameAdapter(arrayList,getActivity(),getActivity().getBaseContext(),groupNameArrayList);
         rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         rvGroupName.setAdapter(groupNameAdapter);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
@@ -50,6 +52,7 @@ ArrayList<String> arrayList;
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
               String groupName=dataSnapshot.getValue(String.class);
               readGroupName(databaseReference,groupName);
+              groupNameArrayList.add(groupName);
 //              arrayList.add(groupName);
 //            DatabaseReference groupNameReference=groupDatabase.child(groupName)
 //              groupNameAdapter.notifyDataSetChanged();

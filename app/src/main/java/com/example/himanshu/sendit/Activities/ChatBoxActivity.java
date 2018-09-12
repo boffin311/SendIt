@@ -90,7 +90,7 @@ public static final String TAG="InitialCHK";
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference=firebaseDatabase.getReference();
         readAllGrids(databaseReference);
-        gridViewAdapter = new GridViewAdapter(arrayList);
+        gridViewAdapter = new GridViewAdapter(arrayList,ChatBoxActivity.this);
         gridView.setAdapter(gridViewAdapter);
       //  ChatBoxAdapter chatBoxAdapter=new ChatBoxAdapter(arrayList);
 //        rvTesting.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true));
@@ -121,6 +121,7 @@ public static final String TAG="InitialCHK";
                          public void onClick(DialogInterface dialog, int which) {
 
                              groupReference.child("AllGridBoxes").push().setValue(etGroupName.getText().toString());
+                             groupReference.child("AllGroupChats").child(etGroupName.getText().toString());
                          }
                      })
                      .setNegativeButton("Cancel",null)
