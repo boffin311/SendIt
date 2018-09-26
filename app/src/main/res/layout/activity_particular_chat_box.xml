@@ -10,7 +10,7 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:id="@+id/rvTesting"
+        android:id="@+id/rvChats"
         android:layout_weight="1"
         android:layout_height="0dp">
 
@@ -40,7 +40,6 @@
                 android:layout_weight="9"
                 android:id="@+id/etSendText"
                 android:maxLines="6"
-
                 android:backgroundTint="#FFF"
                 android:hint="Type the text Here"
                 android:paddingLeft="10dp"

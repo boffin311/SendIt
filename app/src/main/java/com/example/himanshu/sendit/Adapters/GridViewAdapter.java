@@ -17,8 +17,9 @@ import java.util.ArrayList;
 public class GridViewAdapter extends BaseAdapter {
     ArrayList<String> arrayList;
     Context context;
-  public GridViewAdapter(ArrayList<String> arrayList,Context context){
-       this.arrayList=arrayList; this.context=context;
+    String groupName;
+  public GridViewAdapter(ArrayList<String> arrayList,Context context,String groupName){
+       this.arrayList=arrayList; this.context=context;this.groupName=groupName;
    }
     @Override
     public int getCount() {
@@ -51,12 +52,14 @@ public class GridViewAdapter extends BaseAdapter {
             holder= (MyHolder) convertView.getTag();
         }
        holder.tvGridName.setText(name);
+        holder.tvIndex.setText(position);
        holder.tvFirstChar.setText(String.valueOf(name.charAt(0)).toUpperCase());
        holder.GridCard.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
                Intent intent=new Intent(context, ParticularChatBox.class);
-               intent.putExtra("GridBoxName",holder.tvGridName.getText().toString());
+               intent.putExtra("GridBoxName",holder.tvGridName.getText().toString()+"_"+holder.tvIndex.getText().toString());
+               intent.putExtra("GroupName",groupName);
                context.startActivity(intent);
            }
        });
@@ -64,11 +67,12 @@ public class GridViewAdapter extends BaseAdapter {
        return convertView;
     }
     class MyHolder {
-      TextView tvFirstChar,tvGridName;
+      TextView tvFirstChar,tvGridName,tvIndex;
       CardView GridCard;
        public MyHolder(View itemView){
           tvFirstChar=itemView.findViewById(R.id.tvFirstChar);
           GridCard=itemView.findViewById(R.id.GridCard);
+          tvIndex=itemView.findViewById(R.id.tvIndex);
           tvGridName=itemView.findViewById(R.id.tvGridName);
         }
     }
