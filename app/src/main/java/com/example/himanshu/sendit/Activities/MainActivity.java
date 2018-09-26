@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.himanshu.sendit.R;
 import com.example.himanshu.sendit.Adapters.UserAdapter;
-import com.example.himanshu.sendit.UserData;
+import com.example.himanshu.sendit.POJO.UserData;
 
 import java.util.ArrayList;
 

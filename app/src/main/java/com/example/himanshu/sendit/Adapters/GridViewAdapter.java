@@ -52,8 +52,9 @@ public class GridViewAdapter extends BaseAdapter {
             holder= (MyHolder) convertView.getTag();
         }
        holder.tvGridName.setText(name);
-        holder.tvIndex.setText(position);
-       holder.tvFirstChar.setText(String.valueOf(name.charAt(0)).toUpperCase());
+        holder.tvIndex.setText(String.valueOf(position));
+        if (name!=null)
+        holder.tvFirstChar.setText(String.valueOf(name.charAt(0)).toUpperCase());
        holder.GridCard.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {

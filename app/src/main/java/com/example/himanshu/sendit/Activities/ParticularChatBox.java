@@ -4,13 +4,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.example.himanshu.sendit.Adapters.ChatsAdapter;
+import com.example.himanshu.sendit.POJO.AllChats;
 import com.example.himanshu.sendit.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,11 +27,12 @@ import java.util.ArrayList;
 public class ParticularChatBox extends AppCompatActivity {
 FirebaseDatabase firebaseDatabase;
 String gridname,groupName;
-ArrayList<String> arrayList;
+ArrayList<AllChats> arrayList;
 ImageButton imgBtnSend;
 EditText etSendText;
 RecyclerView rvChats;
-DatabaseReference databaseReference;
+ChatsAdapter chatsAdapter;
+DatabaseReference databaseReference,chatRefrence;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,15 +42,19 @@ DatabaseReference databaseReference;
         firebaseDatabase=FirebaseDatabase.getInstance();
         arrayList=new ArrayList<>();
         rvChats=findViewById(R.id.rvChats);
+        chatsAdapter=new ChatsAdapter(arrayList);
+        rvChats.setLayoutManager(new LinearLayoutManager(ParticularChatBox.this));
+        rvChats.setAdapter(chatsAdapter);
         etSendText=findViewById(R.id.etSendText);
         imgBtnSend=findViewById(R.id.imgBtnSend);
         databaseReference=firebaseDatabase.getReference().child(groupName);
-        databaseReference.child("AllChats").child(gridname).addChildEventListener(new ChildEventListener() {
+        chatRefrence=databaseReference.child("AllChats").child(gridname);
+        chatRefrence.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-             String data=dataSnapshot.getValue(String.class);
+             AllChats data=dataSnapshot.getValue(AllChats.class);
              arrayList.add(data);
-
+             chatsAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -70,7 +80,14 @@ DatabaseReference databaseReference;
       imgBtnSend.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-
+           if (etSendText.length()!=0)
+           {
+               chatRefrence.push().setValue(new AllChats(etSendText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber()));
+           }
+           else
+           {
+               Toast.makeText(ParticularChatBox.this, "Nothing to send", Toast.LENGTH_SHORT).show();
+           }
           }
       });
     }

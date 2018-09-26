@@ -1,4 +1,4 @@
-package com.example.himanshu.sendit;
+package com.example.himanshu.sendit.POJO;
 
 public class GroupKiChats {
     String chat;

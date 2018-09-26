@@ -1,4 +1,4 @@
-package com.example.himanshu.sendit;
+package com.example.himanshu.sendit.POJO;
 
 import java.io.Serializable;
 

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.himanshu.sendit.R;
 import com.example.himanshu.sendit.Adapters.SelectedGridAdapter;
-import com.example.himanshu.sendit.UserData;
+import com.example.himanshu.sendit.POJO.UserData;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

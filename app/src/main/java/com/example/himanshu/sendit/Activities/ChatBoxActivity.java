@@ -6,23 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageButton;
 
-import com.example.himanshu.sendit.Adapters.ChatBoxAdapter;
 import com.example.himanshu.sendit.Adapters.GridViewAdapter;
-import com.example.himanshu.sendit.GroupKiChats;
 import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,7 +24,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -45,6 +37,7 @@ FirebaseAuth firebaseAuth;
     ArrayList<String> arrayList;
      EditText etGroupName;
     String groupName;
+     String etName;
     DatabaseReference groupReference,groupActualNameReference;
 FirebaseDatabase firebaseDatabase;
 public static final String TAG="InitialCHK";
@@ -113,14 +106,15 @@ public static final String TAG="InitialCHK";
              View view=li.inflate(R.layout.grid_name_dialogue,null);
 
              etGroupName = view.findViewById(R.id.etGridName);
-             final String etName=etGroupName.getText().toString();
+
+
              AlertDialog alertDialog=new AlertDialog.Builder(ChatBoxActivity.this)
                      .setView(view)
                      .setTitle("Add Box")
                      .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                          @Override
                          public void onClick(DialogInterface dialog, int which) {
-
+                             etName = etGroupName.getText().toString();
                              groupReference.child("AllGridBoxes").push().setValue(etName);
                              groupReference.child("AllChats").child(etName+""+(arrayList.size()-1)).setValue(etName);
                          }

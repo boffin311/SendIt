@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.himanshu.sendit.R;
-import com.example.himanshu.sendit.UserData;
+import com.example.himanshu.sendit.POJO.UserData;
 
 import java.util.ArrayList;
 
