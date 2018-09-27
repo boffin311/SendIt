@@ -23,6 +23,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
   ArrayList<UserData> arrayList;
   Context context;
   RecyclerView rvSelected;
+    String userNumber;
   public ArrayList<UserData> selectedArrayList;
 
 public static final String TAG="CHK3";
@@ -49,8 +50,22 @@ public static final String TAG="CHK3";
     public void onBindViewHolder(@NonNull final MyHolder holder, final int position) {
           UserData userData=arrayList.get(position);
           holder.tvName.setText(userData.getName());
-          holder.tvNumber.setText(userData.getNumber());
-          if (checkArrayList.size()<arrayList.size())
+
+
+        userNumber = userData.getNumber();
+       userNumber= userNumber.replaceAll(" ","");
+
+//       Log.d(TAG, "onBindViewHolder: "+userNumber);
+         if (userNumber.substring(0,3).equals("+91"))
+         { holder.tvNumber.setText(userNumber);
+             Log.d(TAG, "onBindViewHolder: "+holder.tvNumber.getText().toString().length());}
+        else
+         {holder.tvNumber.setText("+91"+userNumber);
+
+//             Log.d(TAG, "onBindViewHolder: "+holder.tvNumber.getText().toString().length());
+         }
+
+         if (checkArrayList.size()<arrayList.size())
              checkArrayList.add(0);
 
           if( checkArrayList.get(position)==0) {holder.imageChecking.setVisibility(View.INVISIBLE);holder.whiteCircle.setVisibility(View.INVISIBLE);}
@@ -66,7 +81,7 @@ public static final String TAG="CHK3";
                 checkArrayList.set(position,1);
                 UserData userData=new UserData(holder.tvName.getText().toString(),holder.tvNumber.getText().toString());
                 selectedArrayList.add(userData);
-                    Log.d(TAG, "onClick: "+selectedArrayList);
+//                    Log.d(TAG, "onClick: "+selectedArrayList);
 
                 SelectedContactsAdapter adapter=new SelectedContactsAdapter(selectedArrayList);
 

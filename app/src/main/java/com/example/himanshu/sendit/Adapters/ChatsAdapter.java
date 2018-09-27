@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,12 +20,15 @@ import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyHolder>{
-   ArrayList<AllChats> arrayList;
+   ArrayList<AllChats> arraylist;
+   LinearLayout.LayoutParams layoutParams;
    public ChatsAdapter(ArrayList<AllChats> arrayList){
-       this.arrayList=arrayList;
-   }
+       this.arraylist=arrayList;
+       }
+
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,11 +39,17 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
-   AllChats chat=arrayList.get(position);
+
+       AllChats chat=arraylist.get(position);
         holder.tvChat.setText(chat.getChat());
         Log.d("CHKIT", "onBindViewHolder: "+FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber()+"   "+chat.getContactNumber());
    if (chat.getContactNumber().equals( FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber()))
-   { holder.linearChat.setHorizontalGravity(Gravity.RIGHT);}
+  {
+       // layoutParams=new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//     layoutParams.gravity=Gravity.RIGHT;
+//       holder.chatCard.setLayoutParams(layoutParams);
+holder.linearChat.setGravity(Gravity.RIGHT);
+      holder.chatCard.setCardBackgroundColor(Color.rgb(97,156,239));}
    else
    {holder.linearChat.setGravity(Gravity.LEFT);
        holder.chatCard.setCardBackgroundColor(Color.WHITE); }
@@ -47,7 +57,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyHolder>{
 
     @Override
     public int getItemCount() {
-        return arrayList.size();
+        return arraylist.size();
     }
 
     public  class MyHolder extends RecyclerView.ViewHolder{
@@ -58,6 +68,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.MyHolder>{
             super(itemView);
             linearChat=itemView.findViewById(R.id.linearChat);
             tvChat=itemView.findViewById(R.id.tvChat);
+
             chatCard=itemView.findViewById(R.id.chatCard);
         }
     }

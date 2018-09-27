@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class ParticularChatBox extends AppCompatActivity {
 FirebaseDatabase firebaseDatabase;
@@ -31,7 +34,9 @@ ArrayList<AllChats> arrayList;
 ImageButton imgBtnSend;
 EditText etSendText;
 RecyclerView rvChats;
+    LinearLayoutManager linearLayoutManager;
 ChatsAdapter chatsAdapter;
+
 DatabaseReference databaseReference,chatRefrence;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +48,12 @@ DatabaseReference databaseReference,chatRefrence;
         arrayList=new ArrayList<>();
         rvChats=findViewById(R.id.rvChats);
         chatsAdapter=new ChatsAdapter(arrayList);
-        rvChats.setLayoutManager(new LinearLayoutManager(ParticularChatBox.this));
+
+        linearLayoutManager = new LinearLayoutManager(this);
+        rvChats.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setStackFromEnd(true);
         rvChats.setAdapter(chatsAdapter);
+
         etSendText=findViewById(R.id.etSendText);
         imgBtnSend=findViewById(R.id.imgBtnSend);
         databaseReference=firebaseDatabase.getReference().child(groupName);
@@ -54,24 +63,22 @@ DatabaseReference databaseReference,chatRefrence;
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
              AllChats data=dataSnapshot.getValue(AllChats.class);
              arrayList.add(data);
+             linearLayoutManager.scrollToPosition(arrayList.size()-1);
              chatsAdapter.notifyDataSetChanged();
-            }
 
+            }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
-
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
             }
-
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -83,6 +90,7 @@ DatabaseReference databaseReference,chatRefrence;
            if (etSendText.length()!=0)
            {
                chatRefrence.push().setValue(new AllChats(etSendText.getText().toString(), FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber()));
+               etSendText.setText(null);
            }
            else
            {
