@@ -5,10 +5,24 @@ import java.io.Serializable;
 public class UserData implements Serializable {
     String name;
     String number;
+    int admin;
 
-    public UserData(String name, String number) {
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+
+    public int getAdmin() {
+
+        return admin;
+    }
+
+    public UserData() {
+    }
+
+    public UserData(String name, String number, int admin) {
         this.name = name;
         this.number = number;
+        this.admin=admin;
     }
 
     public void setName(String name) {

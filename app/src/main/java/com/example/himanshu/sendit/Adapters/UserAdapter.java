@@ -79,7 +79,7 @@ public static final String TAG="CHK3";
                 if(checkArrayList.get(position)==0)
                 {
                 checkArrayList.set(position,1);
-                UserData userData=new UserData(holder.tvName.getText().toString(),holder.tvNumber.getText().toString());
+                UserData userData=new UserData(holder.tvName.getText().toString(),holder.tvNumber.getText().toString(),0);
                 selectedArrayList.add(userData);
 //                    Log.d(TAG, "onClick: "+selectedArrayList);
 

@@ -27,16 +27,32 @@
         android:paddingBottom="10dp"
         android:layout_weight="4"
         android:orientation="vertical">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/tvMemberNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:paddingLeft="15dp"
+        android:layout_gravity="center|left"
+        android:text="hello it sme "
+        android:textColor="#000"
+        android:textSize="18dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_gravity="right"
+        android:text="Group Admin"
+        android:textSize="13sp"
+        android:textAllCaps="false"
+        android:textColor="#0a93f5"
+        android:id="@+id/btnAdmin"
+        android:visibility="invisible"
+        android:background="@drawable/group_admin"
+        android:layout_height="35dp" />
+</FrameLayout>
 
-        <TextView
-            android:id="@+id/tvMemberNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:paddingLeft="15dp"
-            android:text="hello it sme "
-            android:textColor="#000"
-            android:textSize="18dp" />
         <LinearLayout
             android:layout_width="match_parent"
 

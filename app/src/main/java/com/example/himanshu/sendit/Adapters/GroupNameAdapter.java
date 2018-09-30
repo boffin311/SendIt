@@ -53,6 +53,7 @@ ArrayList<String> groupNAmeArrayList;
           public void onClick(View v) {
               Intent intent=new Intent(activity, ChatBoxActivity.class);
               intent.putExtra("GroupToOpen", groupNAmeArrayList.get(position));
+              intent.putExtra("GroupActualName",arrayList.get(position));
               context.startActivity(intent);
 
 

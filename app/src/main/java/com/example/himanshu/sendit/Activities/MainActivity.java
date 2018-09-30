@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         flButton=findViewById(R.id.flButton);
         ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_CONTACTS},123);
         if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-
             userAdapter = new UserAdapter(Contacts(),MainActivity.this,rvSelected);
             rvData.setLayoutManager(new LinearLayoutManager(MainActivity.this));
             rvData.setAdapter(userAdapter);
@@ -118,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
                Log.d("CHK", "Contacts: "+number);
            }
 
-          UserData userData=new UserData(name,number);
+          UserData userData=new UserData(name,number,0);
             arrayList.add(userData);
 
         }

@@ -40,7 +40,7 @@ FirebaseAuth firebaseAuth;
     GridViewAdapter gridViewAdapter;
     ArrayList<String> arrayList;
      EditText etGroupName;
-    String groupName;
+    String groupName,groupActualName;
      String etName;
      Toolbar toolbar;
     DatabaseReference groupReference;
@@ -56,7 +56,7 @@ public static final String TAG="InitialCHK";
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         groupName = getIntent().getStringExtra("GroupToOpen");
-
+        groupActualName=getIntent().getStringExtra("GroupActualName");
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
         { getWindow().setStatusBarColor(Color.rgb(48,63,159));
             toolbar.inflateMenu(R.menu.add_new_box);
@@ -95,6 +95,7 @@ public static final String TAG="InitialCHK";
             public void onClick(View v) {
                 Intent intent=new Intent(ChatBoxActivity.this,GroupInfo.class);
                 intent.putExtra("GroupName",groupName);
+                intent.putExtra("GroupActualName",groupActualName);
                 startActivity(intent);
             }
         });

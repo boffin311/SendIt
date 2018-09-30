@@ -65,9 +65,10 @@ public static final String TAG="CHK";
                DatabaseReference childReference= databaseReference.child(howToNameGroup);
                DatabaseReference memberReference=childReference.child("MembersDetail");
                childReference.child("AllGridBoxes").setValue("GridBoxes");
-               childReference.child("AllGroupChats").setValue("AllChats");
+               childReference.child("AllChats").setValue("AllChats");
                 childReference.child("GroupName").push().setValue(etgroupName.getText().toString());
                 databaseReference.child(firebaseUser.getPhoneNumber()).child("Groups").push().setValue(howToNameGroup);
+                memberReference.push().setValue(new UserData("Himanshu",firebaseUser.getPhoneNumber(),1));
 
                for (int i=0;i<nameArrayList.size();++i)
                { memberReference.push().setValue(nameArrayList.get(i));
