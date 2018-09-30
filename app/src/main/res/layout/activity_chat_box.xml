@@ -8,6 +8,17 @@
     android:layout_height="match_parent"
     tools:context=".Activities.ChatBoxActivity">
 
+<android.support.v7.widget.Toolbar
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    app:title="SendIt"
+
+    android:id="@+id/toolbar"
+    app:titleTextColor="#fff"
+    >
+
+</android.support.v7.widget.Toolbar>
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"

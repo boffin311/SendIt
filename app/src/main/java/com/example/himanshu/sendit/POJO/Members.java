@@ -8,6 +8,7 @@ public class Members {
         this.name = name;
         this.number = number;
     }
+    public  Members(){}
 
     public void setName(String name) {
         this.name = name;

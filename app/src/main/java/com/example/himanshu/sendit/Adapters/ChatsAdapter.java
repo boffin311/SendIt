@@ -59,7 +59,6 @@ holder.linearChat.setGravity(Gravity.RIGHT);
     public int getItemCount() {
         return arraylist.size();
     }
-
     public  class MyHolder extends RecyclerView.ViewHolder{
        TextView tvChat;
        LinearLayout linearChat;

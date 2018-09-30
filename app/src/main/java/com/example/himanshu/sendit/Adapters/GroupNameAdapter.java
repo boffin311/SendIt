@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.himanshu.sendit.Activities.ChatBoxActivity;
@@ -47,12 +48,11 @@ ArrayList<String> groupNAmeArrayList;
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
       holder.tvGroupName.setText(arrayList.get(position));
-      holder.tvGroupName.setOnClickListener(new View.OnClickListener() {
+      holder.lineargroupName.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               Intent intent=new Intent(activity, ChatBoxActivity.class);
               intent.putExtra("GroupToOpen", groupNAmeArrayList.get(position));
-
               context.startActivity(intent);
 
 
@@ -67,43 +67,45 @@ ArrayList<String> groupNAmeArrayList;
 
     class MyHolder extends RecyclerView.ViewHolder{
         TextView tvGroupName;
+        LinearLayout lineargroupName;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             tvGroupName=itemView.findViewById(R.id.tvGroupName);
+            lineargroupName=itemView.findViewById(R.id.linearGroupName);
         }
     }
 
-    private ArrayList<String> readGroupName(){
-        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
-       final ArrayList<String> arrayList=new ArrayList<>();
-        DatabaseReference databaseReference=firebaseDatabase.getReference().child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
-        databaseReference.child("Groups").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String data=dataSnapshot.getValue(String.class);
-                arrayList.add(data);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-       return arrayList;
-    }
+//    private ArrayList<String> readGroupName(){
+//        FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
+//       final ArrayList<String> arrayList=new ArrayList<>();
+//        DatabaseReference databaseReference=firebaseDatabase.getReference().child(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
+//        databaseReference.child("Groups").addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                String data=dataSnapshot.getValue(String.class);
+//                arrayList.add(data);
+//            }
+//
+//            @Override
+//            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//       return arrayList;
+//    }
 }

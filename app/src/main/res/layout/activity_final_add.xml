@@ -29,6 +29,7 @@
             android:layout_gravity="center"
             android:hint="Type Name of Group"
             android:textColor="#000"
+            android:inputType="textCapWords"
          android:id="@+id/etGroupName"
             android:layout_height="wrap_content" />
 
