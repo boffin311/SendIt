@@ -45,12 +45,13 @@
         android:layout_gravity="right"
         android:text="Group Admin"
         android:textSize="13sp"
+        android:visibility="invisible"
         android:textAllCaps="false"
         android:textColor="#0a93f5"
         android:id="@+id/btnAdmin"
-        android:visibility="invisible"
+
         android:background="@drawable/group_admin"
-        android:layout_height="35dp" />
+        android:layout_height="20dp" />
 </FrameLayout>
 
         <LinearLayout

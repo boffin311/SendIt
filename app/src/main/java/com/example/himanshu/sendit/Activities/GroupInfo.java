@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.himanshu.sendit.Adapters.MembersDetailAdapter;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ FirebaseDatabase firebaseDatabase;
 DatabaseReference databaseReference;
 String groupName,groupActualName;
 TextView tvGrpName;
+ImageView imageGroup;
 MembersDetailAdapter membersDetailAdapter;
 RecyclerView rvAllMembers;
 ArrayList<UserData> arrayList;
@@ -37,6 +40,8 @@ ArrayList<UserData> arrayList;
        rvAllMembers=findViewById(R.id.rvAllMembers);
        rvAllMembers.setLayoutManager(new LinearLayoutManager(GroupInfo.this));
        rvAllMembers.setAdapter(membersDetailAdapter);
+       imageGroup=findViewById(R.id.imageGroup);
+      // Picasso.get().load(R.drawable.test_image).into(imageGroup);
 //       rvAllMembers.addOnScrollListener(new HideViewAnimater() {
 //           @Override
 //           public void onShow() {
@@ -86,4 +91,5 @@ ArrayList<UserData> arrayList;
 //    private void showViews() {
 //        mToolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2));
 //    }
+
 }
