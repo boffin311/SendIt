@@ -59,7 +59,7 @@ public static final String TAG="CHK";
         if (item.getItemId()==R.id.createGroup)
         {
             DatabaseReference databaseReference=firebaseDatabase.getReference();
-           String howToNameGroup=firebaseUser.getUid()+etgroupName.getText().toString();
+           String howToNameGroup=(firebaseUser.getUid()+etgroupName.getText().toString()).replace(" ","");
             if (etgroupName.getText().length()!=0)
             {
                DatabaseReference childReference= databaseReference.child(howToNameGroup);

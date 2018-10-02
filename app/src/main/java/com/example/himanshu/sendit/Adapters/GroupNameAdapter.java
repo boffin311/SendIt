@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.himanshu.sendit.Activities.ChatBoxActivity;
+import com.example.himanshu.sendit.POJO.GroupMembers;
 import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -24,16 +26,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHolder> {
-   ArrayList<String> arrayList;
-Context context;
+   ArrayList<GroupMembers> arrayList;
+//Context context;
 Activity activity;
-ArrayList<String> groupNAmeArrayList;
+public static final String TAG="HEMU";
+//ArrayList<String> groupNAmeArrayList;
 
-    public GroupNameAdapter(ArrayList<String> arrayList,Activity activity,Context context,ArrayList<String> groupNAmeArrayList) {
+    public GroupNameAdapter(ArrayList<GroupMembers> arrayList, Activity activity) {
         this.arrayList = arrayList;
-        this.context=context;
+      //  this.context=context;
         this.activity=activity;
-        this.groupNAmeArrayList=groupNAmeArrayList;
+       // this.groupNAmeArrayList=groupNAmeArrayList;
     }
 
     @NonNull
@@ -47,14 +50,15 @@ ArrayList<String> groupNAmeArrayList;
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, final int position) {
-      holder.tvGroupName.setText(arrayList.get(position));
+      holder.tvGroupName.setText(arrayList.get(position).getGroupName());
+        Log.d(TAG, "onBindViewHolder: "+arrayList.size());
       holder.lineargroupName.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
               Intent intent=new Intent(activity, ChatBoxActivity.class);
-              intent.putExtra("GroupToOpen", groupNAmeArrayList.get(position));
-              intent.putExtra("GroupActualName",arrayList.get(position));
-              context.startActivity(intent);
+              intent.putExtra("GroupNameWithUID", arrayList.get(position).getGroupNameWithUID());
+              intent.putExtra("GroupName",arrayList.get(position).getGroupName());
+              activity.getBaseContext().startActivity(intent);
 
 
           }

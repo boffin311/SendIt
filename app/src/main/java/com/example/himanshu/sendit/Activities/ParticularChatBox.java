@@ -29,7 +29,7 @@ import java.util.Collections;
 
 public class ParticularChatBox extends AppCompatActivity {
 FirebaseDatabase firebaseDatabase;
-String gridname,groupName;
+String gridname,groupNameWithUID;
 ArrayList<AllChats> arrayList;
 ImageButton imgBtnSend;
 EditText etSendText;
@@ -43,7 +43,7 @@ DatabaseReference databaseReference,chatRefrence;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_particular_chat_box);
         gridname=getIntent().getStringExtra("GridBoxName");
-        groupName=getIntent().getStringExtra("GroupName");
+        groupNameWithUID=getIntent().getStringExtra("GroupNameWithUID");
         firebaseDatabase=FirebaseDatabase.getInstance();
         arrayList=new ArrayList<>();
         rvChats=findViewById(R.id.rvChats);
@@ -56,7 +56,7 @@ DatabaseReference databaseReference,chatRefrence;
 
         etSendText=findViewById(R.id.etSendText);
         imgBtnSend=findViewById(R.id.imgBtnSend);
-        databaseReference=firebaseDatabase.getReference().child(groupName);
+        databaseReference=firebaseDatabase.getReference().child(groupNameWithUID);
         chatRefrence=databaseReference.child("AllChats").child(gridname);
         chatRefrence.addChildEventListener(new ChildEventListener() {
             @Override

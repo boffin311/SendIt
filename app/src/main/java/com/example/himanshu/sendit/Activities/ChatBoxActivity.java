@@ -2,6 +2,7 @@ package com.example.himanshu.sendit.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -16,10 +17,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
 import com.example.himanshu.sendit.Adapters.GridViewAdapter;
+import com.example.himanshu.sendit.Database.GroupNameDatabase;
+import com.example.himanshu.sendit.Database.MyDataBaseHelper;
 import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,8 +44,10 @@ FirebaseAuth firebaseAuth;
     GridViewAdapter gridViewAdapter;
     ArrayList<String> arrayList;
      EditText etGroupName;
-    String groupName,groupActualName;
+     SQLiteDatabase db;
+    String groupNameWithUID,groupName;
      String etName;
+     int child;
      Toolbar toolbar;
     DatabaseReference groupReference;
 FirebaseDatabase firebaseDatabase;
@@ -49,14 +55,23 @@ public static final String TAG="InitialCHK";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chat_box);
-        arrayList=new ArrayList<>();
+        MyDataBaseHelper myDataBaseHelper=new MyDataBaseHelper(this);
+        db=myDataBaseHelper.getWritableDatabase();
+        child=0;
         gridView=findViewById(R.id.gridView);
         toolbar=findViewById(R.id.toolbar);
+       // firebaseDatabase = FirebaseDatabase.getInstance();
+
         firebaseDatabase=FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
-        groupName = getIntent().getStringExtra("GroupToOpen");
-        groupActualName=getIntent().getStringExtra("GroupActualName");
+        groupNameWithUID = getIntent().getStringExtra("GroupNameWithUID");
+        groupName=getIntent().getStringExtra("GroupName");
+        groupReference = firebaseDatabase.getReference().child(groupNameWithUID);
+
+        arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID);
+        toolbar.setTitle(groupName);
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
         { getWindow().setStatusBarColor(Color.rgb(48,63,159));
             toolbar.inflateMenu(R.menu.add_new_box);
@@ -94,37 +109,35 @@ public static final String TAG="InitialCHK";
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ChatBoxActivity.this,GroupInfo.class);
-                intent.putExtra("GroupName",groupName);
-                intent.putExtra("GroupActualName",groupActualName);
+                intent.putExtra("GroupName",groupNameWithUID);
+                intent.putExtra("GroupActualName",groupName);
                 startActivity(intent);
             }
         });
-        groupReference = firebaseDatabase.getReference().child(groupName);
-       groupReference.child("GroupName").addChildEventListener(new ChildEventListener() {
-           @Override
-           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-               String titleName=dataSnapshot.getValue(String.class);
-               toolbar.setTitle(titleName);
-           }
-           @Override
-           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//       groupReference.child("GroupName").addChildEventListener(new ChildEventListener() {
+//           @Override
+//           public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//               String titleName=dataSnapshot.getValue(String.class);
+//               toolbar.setTitle(titleName);
+//           }
+//           @Override
+//           public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//           }
+//           @Override
+//           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+//
+//           }
+//           @Override
+//           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//
+//           }
+//           @Override
+//           public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//           }
+//       });
 
-           }
-           @Override
-           public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-           }
-           @Override
-           public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-           }
-           @Override
-           public void onCancelled(@NonNull DatabaseError databaseError) {
-
-           }
-       });
-
-        firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser=FirebaseAuth.getInstance().getCurrentUser();
         databaseReference=firebaseDatabase.getReference();
         readAllGrids(databaseReference);
@@ -171,13 +184,21 @@ public static final String TAG="InitialCHK";
 
     public void readAllGrids(DatabaseReference databaseReference)
     {
-        databaseReference.child(groupName).child("AllGridBoxes").addChildEventListener(new ChildEventListener() {
+        databaseReference.child(groupNameWithUID).child("AllGridBoxes").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                   String data=dataSnapshot.getValue(String.class);
-                Log.d(TAG, "onChildAdded: "+data);
-                  arrayList.add(data);
-                  gridViewAdapter.notifyDataSetChanged();
+                  child+=1;
+                  Log.d(TAG, "onChildAdded: "+data);
+                 if(child> GroupNameDatabase.getTotalGridRow(db,groupNameWithUID))
+                 { GroupNameDatabase.insertGrid(db,data,groupNameWithUID);
+                 arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID);
+                     gridViewAdapter = new GridViewAdapter(arrayList,ChatBoxActivity.this,groupNameWithUID);
+                     gridView.setAdapter(gridViewAdapter);
+
+                 }
+
+                 //gridViewAdapter.notifyDataSetChanged();
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

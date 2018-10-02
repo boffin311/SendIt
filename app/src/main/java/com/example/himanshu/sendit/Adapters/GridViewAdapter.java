@@ -17,9 +17,9 @@ import java.util.ArrayList;
 public class GridViewAdapter extends BaseAdapter {
     ArrayList<String> arrayList;
     Context context;
-    String groupName;
-  public GridViewAdapter(ArrayList<String> arrayList,Context context,String groupName){
-       this.arrayList=arrayList; this.context=context;this.groupName=groupName;
+    String groupNameWithUID;
+  public GridViewAdapter(ArrayList<String> arrayList,Context context,String groupNameWithUID){
+       this.arrayList=arrayList; this.context=context;this.groupNameWithUID=groupNameWithUID;
    }
     @Override
     public int getCount() {
@@ -60,7 +60,7 @@ public class GridViewAdapter extends BaseAdapter {
            public void onClick(View v) {
                Intent intent=new Intent(context, ParticularChatBox.class);
                intent.putExtra("GridBoxName",holder.tvGridName.getText().toString()+"_"+holder.tvIndex.getText().toString());
-               intent.putExtra("GroupName",groupName);
+               intent.putExtra("GroupNameWithUID",groupNameWithUID);
                context.startActivity(intent);
            }
        });
