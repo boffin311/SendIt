@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@drawable/test_image"
+
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="443dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@drawable/circle_view"
+            android:backgroundTint="#26000000"
+            android:src="@drawable/ic_person" />
+
+        <EditText
+            android:id="@+id/etNickName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/modified_edit_text"
+            android:hint="Enter Your Name"
+            android:inputType="textPersonName"
+            android:padding="13dp" />
+
+        <TextView
+            android:id="@+id/tvNext"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/modified_button"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="NEXT"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -66,7 +66,7 @@ public class AuthenticationFragment extends Fragment {
                 databaseReference.child("Groups").setValue("Groups");
                 FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
                 FragmentTransaction fragTxn=fragmentManager.beginTransaction();
-                fragTxn.replace(R.id.fragmentFrame,new MainFragment());
+                fragTxn.replace(R.id.fragmentFrame,new AcceptNameFragment());
                 fragTxn.commit();
 // Intent intent=new Intent(getActivity().getBaseContext(), MainActivity.class);
 //                startActivity(intent);
