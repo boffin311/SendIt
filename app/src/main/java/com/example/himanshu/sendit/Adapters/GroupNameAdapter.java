@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,25 +13,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.himanshu.sendit.Activities.ChatBoxActivity;
-import com.example.himanshu.sendit.POJO.GroupMembers;
+import com.example.himanshu.sendit.POJO.GroupList;
 import com.example.himanshu.sendit.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class GroupNameAdapter extends RecyclerView.Adapter<GroupNameAdapter.MyHolder> {
-   ArrayList<GroupMembers> arrayList;
+   ArrayList<GroupList> arrayList;
 //Context context;
 Activity activity;
 public static final String TAG="HEMU";
 //ArrayList<String> groupNAmeArrayList;
 
-    public GroupNameAdapter(ArrayList<GroupMembers> arrayList, Activity activity) {
+    public GroupNameAdapter(ArrayList<GroupList> arrayList, Activity activity) {
         this.arrayList = arrayList;
       //  this.context=context;
         this.activity=activity;
@@ -55,11 +48,15 @@ public static final String TAG="HEMU";
       holder.lineargroupName.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              Intent intent=new Intent(activity, ChatBoxActivity.class);
-              intent.putExtra("GroupNameWithUID", arrayList.get(position).getGroupNameWithUID());
-              intent.putExtra("GroupName",arrayList.get(position).getGroupName());
-              activity.getBaseContext().startActivity(intent);
-
+             if (arrayList.get(position).getIsCreated()==1) {
+                 Intent intent = new Intent(activity, ChatBoxActivity.class);
+                 intent.putExtra("GroupNameWithUID", arrayList.get(position).getGroupNameWithUID());
+                 intent.putExtra("GroupName", arrayList.get(position).getGroupName());
+                 activity.getBaseContext().startActivity(intent);
+             }
+             else{
+             //    if ()
+             }
 
           }
       });

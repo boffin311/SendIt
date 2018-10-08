@@ -15,10 +15,9 @@
         <activity
             android:name=".Activities.FinalAdd"
             android:windowSoftInputMode="adjustNothing" />
-        <activity android:name=".Activities.ChatBoxActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
-            />
+        <activity
+            android:name=".Activities.ChatBoxActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Activities.AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.ParticularChatBox" />
-        <activity android:name=".Activities.GroupInfo"></activity>
+        <activity android:name=".Activities.GroupInfo" />
+
     </application>
 
 </manifest>

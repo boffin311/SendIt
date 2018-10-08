@@ -12,12 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.himanshu.sendit.Adapters.GroupNameAdapter;
 import com.example.himanshu.sendit.Database.GroupNameDatabase;
 import com.example.himanshu.sendit.Database.MyDataBaseHelper;
-import com.example.himanshu.sendit.POJO.GroupMembers;
+import com.example.himanshu.sendit.POJO.GroupList;
 import com.example.himanshu.sendit.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -33,13 +32,13 @@ public class MainFragment extends Fragment {
 RecyclerView rvGroupName;
 String groupKaName;
      GroupNameAdapter groupNameAdapter;
-ArrayList<GroupMembers> arrayList;
+ArrayList<GroupList> arrayList;
 ArrayList<String> groupNameArrayList;
      DatabaseReference databaseReference,groupDatabase;
 SQLiteDatabase db;
-int count;
+int count,groupTableCount;
 Context context;
-public static final String  TAG="CHK";
+public static final String  TAG="CHK7";
     public MainFragment() {
     }
 
@@ -59,13 +58,14 @@ public static final String  TAG="CHK";
         rvGroupName=contactView.findViewById(R.id.rvGroupName);
 
         arrayList =GroupNameDatabase.readAllGroupName(db);
-        Log.d(TAG, "onCreateView: "+arrayList.size());
+      //  Log.d(TAG, "onCreateView: "+arrayList.size());
       //  arrayList=new ArrayList<>();
         groupNameAdapter = new GroupNameAdapter(arrayList,getActivity());
         rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
         rvGroupName.setAdapter(groupNameAdapter);
         //arrayList= GroupNameDatabase.readGroupName(db);
-
+      groupTableCount=GroupNameDatabase.getTotalRow(db);
+        Log.d(TAG, "onCreateView: "+groupTableCount);
         FirebaseDatabase firebaseDatabase=FirebaseDatabase.getInstance();
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         databaseReference = firebaseDatabase.getReference();
@@ -73,23 +73,8 @@ public static final String  TAG="CHK";
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
               String groupNameWithUID=dataSnapshot.getValue(String.class);
-//              count+=1;
-//              Log.d(TAG, "onChildAdded: "+GroupNameDatabase.getTotalRow(db)+count);
-//             if (count>GroupNameDatabase.getTotalRow(db))
-//             {
-//               GroupNameDatabase.insert(db,new GroupMembers(readGroupName(databaseReference,groupName),groupName));
-//               arrayList=GroupNameDatabase.readGroupName(db);
-//                 Log.d(TAG, "onChildAdded: "+arrayList);
-//               groupNameAdapter.notifyDataSetChanged();
-////                 readGroupName(databaseReference,groupName);
-//             }
-                readGroupName(databaseReference,groupNameWithUID);
 
-//                groupNameAdapter = new GroupNameAdapter(arrayList,getActivity());
-//
-//                rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-//                rvGroupName.setAdapter(groupNameAdapter);
-             //   readGroupName(databaseReference,groupName);
+                readGroupName(databaseReference,groupNameWithUID);
 
 
             }
@@ -125,13 +110,14 @@ public static final String  TAG="CHK";
                if (count>GroupNameDatabase.getTotalRow(db))
                {
                    Log.d(TAG, "onChildAdded: "+groupName);
-                   GroupNameDatabase.insert(db,new GroupMembers(groupName,groupNameWithUID),groupNameWithUID);
+                   GroupNameDatabase.insert(db,new GroupList(groupName,groupNameWithUID,1),groupNameWithUID);
                    arrayList=GroupNameDatabase.readAllGroupName(db);
                    Log.d(TAG, "onChildAdded: "+arrayList.size());
-                 //  groupNameAdapter.notifyDataSetChanged();
+                  // groupNameAdapter.notifyDataSetChanged();
                    groupNameAdapter = new GroupNameAdapter(arrayList,getActivity());
 //                   rvGroupName.setLayoutManager(new LinearLayoutManager(getActivity().getBaseContext()));
-                   rvGroupName.setAdapter(groupNameAdapter);
+                  rvGroupName.setAdapter(groupNameAdapter);
+                   groupTableCount+=1;
                    //                 readGroupName(databaseReference,groupName);
                }
            }

@@ -24,7 +24,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyHolder> {
   Context context;
   RecyclerView rvSelected;
     String userNumber;
-  public ArrayList<UserData> selectedArrayList;
+  public  ArrayList<UserData> selectedArrayList;
 
 public static final String TAG="CHK3";
 

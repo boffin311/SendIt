@@ -47,7 +47,7 @@ FirebaseAuth firebaseAuth;
      SQLiteDatabase db;
     String groupNameWithUID,groupName;
      String etName;
-     int child;
+     int child,gridTotalCount;
      Toolbar toolbar;
     DatabaseReference groupReference;
 FirebaseDatabase firebaseDatabase;
@@ -70,7 +70,9 @@ public static final String TAG="InitialCHK";
         groupName=getIntent().getStringExtra("GroupName");
         groupReference = firebaseDatabase.getReference().child(groupNameWithUID);
 
-        arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID);
+//        gridTotalCount=GroupNameDatabase.getTotalGridRow(db,groupNameWithUID+"GridBox");
+
+        arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID+"GridBoxes");
         toolbar.setTitle(groupName);
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP)
         { getWindow().setStatusBarColor(Color.rgb(48,63,159));
@@ -109,8 +111,8 @@ public static final String TAG="InitialCHK";
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(ChatBoxActivity.this,GroupInfo.class);
-                intent.putExtra("GroupName",groupNameWithUID);
-                intent.putExtra("GroupActualName",groupName);
+                intent.putExtra("GroupNameWithUID",groupNameWithUID);
+                intent.putExtra("GroupName",groupName);
                 startActivity(intent);
             }
         });
@@ -190,15 +192,14 @@ public static final String TAG="InitialCHK";
                   String data=dataSnapshot.getValue(String.class);
                   child+=1;
                   Log.d(TAG, "onChildAdded: "+data);
-                 if(child> GroupNameDatabase.getTotalGridRow(db,groupNameWithUID))
-                 { GroupNameDatabase.insertGrid(db,data,groupNameWithUID);
-                 arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID);
+                 if(child>GroupNameDatabase.getTotalGridRow(db,groupNameWithUID+"GridBoxes") )
+                 { GroupNameDatabase.insertGrid(db,data,groupNameWithUID+"GridBoxes");
+                 arrayList=GroupNameDatabase.readAllGrids(db,groupNameWithUID+"GridBoxes");
                      gridViewAdapter = new GridViewAdapter(arrayList,ChatBoxActivity.this,groupNameWithUID);
                      gridView.setAdapter(gridViewAdapter);
-
                  }
 
-                 //gridViewAdapter.notifyDataSetChanged();
+                 gridViewAdapter.notifyDataSetChanged();
             }
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {

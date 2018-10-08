@@ -29,6 +29,7 @@ public class MembersDetailAdapter extends RecyclerView.Adapter<MembersDetailAdap
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
      UserData members=arrayList.get(position);
+     holder.tvNickName.setText(members.getName());
      holder.tvMemberNumber.setText(members.getNumber());
      if (members.getAdmin()==1)
      {
@@ -42,11 +43,12 @@ public class MembersDetailAdapter extends RecyclerView.Adapter<MembersDetailAdap
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
-        TextView tvMemberNumber;
+        TextView tvMemberNumber,tvNickName;
         Button  btnAdmin;
         public MyHolder(@NonNull View itemView) {
             super(itemView);
             btnAdmin=itemView.findViewById(R.id.btnAdmin);
+            tvNickName=itemView.findViewById(R.id.tvNickName);
             tvMemberNumber=itemView.findViewById(R.id.tvMemberNumber);
         }
     }
